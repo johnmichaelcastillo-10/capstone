@@ -1,0 +1,54 @@
+html, body {
+  background-color: whitesmoke;
+  color: white;
+  height: 100%;
+  width: 100%;
+
+}
+
+.center {
+    margin-top: 200px;
+    margin-left: 200px;
+    margin-right: 200px;
+    height: 500px;
+    display: flex; 
+    justify-content: center; 
+}
+
+.leftSide {
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+}
+
+.rightSide {
+  color: #FEE6E6;
+  background-color: #7A0505;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  margin-top: 85px;
+}
+
+h3{
+  align-items: center;
+  justify-content: center;
+}
+
+.sumbitBtn {
+  margin-top: 10px;
+  background-color: #7A0505;
+  color: #FEE6E6;
+
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+}
