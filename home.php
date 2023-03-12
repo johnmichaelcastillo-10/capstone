@@ -75,7 +75,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
             <div class="title col">
                 <h4>Vesion</h4>
             </div>
-            <div class="col">
+            <div class="col offset-1">
                 <nav class="navbar navbar-expand">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">

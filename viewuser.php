@@ -144,17 +144,31 @@ include_once 'config.php';
             <div class="title col">
                 <h4>View Users</h4>
             </div>
-            <div class="col">
-                <a href="home.php" class="text-uppercase">Home</a>
-                <a href="viewuser.php" class="text-uppercase">View Users</a>
-                <a href="#" class="text-uppercase">View Admin</a>
-                <a href="logout.php" name="logout" class="text-uppercase">Logout</a>
+            <div class="col offset-1">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" style="color:white; font-size: 22px" aria-current="page" href="home.php">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " style="color:white; font-size: 22px;" href="viewuser.php">View Users</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:white; font-size: 22px;" href="viewuser.php">View Admin</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" style="color:white; font-size: 22px;" href="logout.php">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
 
         </div>
         <div class="center rounded-5">
             <div class="row">
-                <table id="table">
+                <table id="table" class=" table-hover">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -173,7 +187,7 @@ include_once 'config.php';
                             $sl = ++$i;
                             $name = $row['name'];
                             $email = $row['email'];
-                            $contactNumber = $row['contact_number'];
+                            $contactNumber = $row['contactnumber'];
                             $id = $row['id'];
 
                             echo "<tr>
@@ -182,9 +196,10 @@ include_once 'config.php';
                                                         <td style='color: black'>$email</td>
                                                         <td style='color: black'>$contactNumber</td>
                                                         <td class='btn-group'>
+                                                        <a href='view.php?id=$id' class='btn btn-success' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i>View</a>
                                                             <a href='edit_page.php?id=$id' class='btn btn-warning' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i>Edit</a>
-                                                            <a href='#' class='btn btn-danger deleteuser' title='Delete'>Delete
-						     <i class='fa fa-trash-o fa-lg' data-toggle='modal' data-target='#$id' style='' aria-hidden='true'></i>
+                                                            <a href='delete.php?id=$id' class='btn btn-danger' title='Delete'>Delete
+						                                     <i class='fa fa-trash-o fa-lg' data-toggle='modal' data-target='#$id' style='' aria-hidden='true'></i>
 						</a>
                                                         </td>
                                                     </tr>";
@@ -198,41 +213,12 @@ include_once 'config.php';
         </div>
     </div>
 
-    <?php
 
-    $get_user_data = "SELECT * FROM user_table";
-    $run_user_data = mysqli_query($con, $get_user_data);
-
-    while ($row = mysqli_fetch_array($run_user_data)) {
-        $id = $row['id'];
-        echo "
-<div id='$id' class='modal fade' role='dialog'>
-  <div class='modal-dialog'>
-    <!-- Modal content-->
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <button type='button' class='close' data-dismiss='modal'>&times;</button>
-        <h4 class='modal-title text-center'>Are you want to sure??</h4>
-      </div>
-      <div class='modal-body'>
-        <a href='delete.php?id=$id' class='btn btn-danger' style='margin-left:250px'>Delete</a>
-      </div>
-      
-    </div>
-  </div>
-</div>
-	";
-    }
-
-
-    ?>
-
-
-    <script src="//cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
+    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-4JTBymeQv4I4X4Obgb+TkTzPT2Q/1LrDgZrxyhOYH7feNmkRFziMN9NxfxyO6lk8" crossorigin="anonymous"></script>
     <script>
         $(document).ready(function() {
             $('#table').DataTable();
-
         });
     </script>
 </body>
