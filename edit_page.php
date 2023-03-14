@@ -156,7 +156,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
         <div class="row h4 pb-2 mb-4 text-white border-3 border-bottom border-white">
             <div class="col">
 
-                <h1 class="text-center"><?php echo $name ?></h1>
+                <h1 class="text-center">EDIT: <?php echo $name ?></h1>
             </div>
         </div>
         <form class="row g-3" action="edit.php?id=<?php echo $id ?>" method="POST">
