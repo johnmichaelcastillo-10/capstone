@@ -179,64 +179,51 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
                 $run_join_user_car = mysqli_query($con, $join_user_car);
                 $car = mysqli_fetch_all($run_join_user_car, MYSQLI_ASSOC);
                 foreach ($car as $cars) {
+                    // $i = 1;
                     echo "
-          <h5 style='margin-left: 100px' class='text-capitalize'><strong>||Car Brand:</strong> {$cars['car_brand']}</h5>
-          <h5 style='margin-left: 100px' class='text-capitalize'><strong>||Car Model:</strong> {$cars['car_model']}</h5>
-          <h5 style='margin-left: 100px'><strong>||Car Plate:</strong> <span class='text-uppercase'>{$cars['plate_number']}</span></h5>
-          <button style='margin-left: 100px; background-color: #7A0505' type='button' class='btn text-white' data-bs-toggle='modal' data-bs-target='#accident{$cars['id']}'>View Accidents</button>
-          <h5 style='margin-left: 100px'>===============================</h5>
-        ";
+                    <h5 style='margin-left: 100px' class='text-capitalize'><Strong>||Car Brand:</strong> {$cars['id']}</h5>
+                    <h5 style='margin-left: 100px' class='text-capitalize'><Strong>||Car Brand:</strong> {$cars['car_brand']}</h5>
+                    <h5 style='margin-left: 100px' class='text-capitalize'><strong>||Car Model:</strong> {$cars['car_model']}</h5>
+                    <h5 style='margin-left: 100px'><strong>||Car Plate:</strong> <span class='text-uppercase'>{$cars['plate_number']}</span></h5>
+                    <!-- Button trigger modal -->
+                    <button style='margin-left: 100px; background-color: #7A0505'type='button' class='btn text-white' data-bs-toggle='modal' data-bs-target='#exampleModal'> View Accidents </button>
+                    <h5 style='margin-left: 100px'>===============================</h5>
+             
+
+
+                    ";
+                    // $i++
                 }
                 ?>
             </div>
+            <!-- Modal -->
             <?php
-            foreach ($car as $cars) {
-                $join_car_accident = "SELECT * FROM accident_table LEFT JOIN car_table ON accident_table.car_id = car_table.id WHERE accident_table.car_id = {$cars['id']}";
-                $run_join_car_accident = mysqli_query($con, $join_car_accident);
-                $accident = mysqli_fetch_all($run_join_car_accident, MYSQLI_ASSOC);
-                echo count($accident);
-                echo "
-    <div class='modal fade' id='accident{$cars['id']}' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
-      <div class='modal-dialog'>
-        <div class='modal-content'>
-          <div class='modal-header'>
-            <h5 class='modal-title text-black text-capitalize' id='exampleModalLabel'>Accident Record for {$cars['car_brand']} {$cars['car_model']}</h5>
-            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
-          </div>
-          <div class='modal-body text-black'>
-            <table class='table table-bordered'>
-              <thead>
-                <tr>
-                  <th>Latitude</th>
-                  <th>Longitude</th>
-                  <th>Magnitude</th>
-                </tr>
-              </thead>
-              <tbody>
-      ";
-                foreach ($accident as $accident_item) {
-                    echo "
-      <tr>
-        <td>{$accident_item['latitude']}</td>
-        <td>{$accident_item['longitude']}</td>
-        <td>{$accident_item['magnitude']}</td>
-      </tr>
-    ";
-                }
-                echo "
-              </tbody>
-            </table>
-          </div>
-          <div class='modal-footer'>
-            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  ";
-            }
-            ?>
+            $join_car_accident = "SELECT * FROM accident_table LEFT JOIN car_table ON accident_table.car_id = car_table.id WHERE accident_table.car_id = {$carArray['id']}";
+            $run_join_car_accident = mysqli_query($con, $join_car_accident);
+            $accident = mysqli_fetch_all($run_join_car_accident, MYSQLI_ASSOC);
 
+            foreach ($accident as $accident) {
+                echo "
+                <div class='modal fade' id='exampleModal' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                <div class='modal-dialog'>
+                    <div class='modal-content'>
+                        <div class='modal-header'>
+                            <h5 class='modal-title text-black' id='exampleModalLabel'>Modal title</h5>
+                            <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                        </div>
+                        <div class='modal-body text-black'>
+                            <h1>test</h1>
+                        </div>
+                        <div class='modal-footer'>
+                            <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                ";
+            }
+
+            ?>
 
             <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.min.js"></script>
 
