@@ -138,7 +138,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
                                 <a class="nav-link " style="color:white; font-size: 22px;" href="viewuser.php">View Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" style="color:white; font-size: 22px;" href="viewuser.php">View Admin</a>
+                                <a class="nav-link" style="color:white; font-size: 22px;" href="edit_admin_page.php">View Admin</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" style="color:white; font-size: 22px;" href="logout.php">Logout</a>
@@ -187,7 +187,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
                 <input class="rounded-pill form-control  bg-dark text-white" name="confirmpassword" value="<?php echo $password ?>" id="inputPassword4">
             </div>
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <button class="rounded-pill btn text-white fw-bold me-md-2" style="background-color: #7A0505;" name="submit" value="submit" type="submit">Button</button>
+                <button class="rounded-pill btn text-white fw-bold me-md-2" style="background-color: #7A0505;" name="submit" value="submit" type="submit">Submit</button>
             </div>
         </form>
 

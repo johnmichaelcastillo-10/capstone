@@ -86,7 +86,7 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
                                 <a class="nav-link " style="color:white; font-size: 22px;" href="viewuser.php">View Users</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" style="color:white; font-size: 22px;" href="viewuser.php">View Admin</a>
+                                <a class="nav-link" style="color:white; font-size: 22px;" href="edit_admin_page.php">View Admin</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" style="color:white; font-size: 22px;" href="logout.php">Logout</a>

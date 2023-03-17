@@ -1,27 +1,24 @@
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+include_once 'config.php';
 
 // Check if user is not logged in, then redirect to login page
 if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
     header("location: index.php");
     exit;
 }
-include_once 'config.php';
-
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="//cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+    <title>Vesion | Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/viewuser.css">
     <style>
         body {
             background-color: #7A0505;
@@ -55,11 +52,6 @@ include_once 'config.php';
             font-family: Pacifico;
         }
 
-        h4 {
-            font-size: 100px;
-            color: whitesmoke;
-            font-family: Pacifico;
-        }
 
         a {
             color: whitesmoke;
@@ -105,26 +97,6 @@ include_once 'config.php';
             margin: 0 5px;
         }
 
-        label {
-            color: white;
-        }
-
-        #table_info {
-            color: white;
-        }
-
-        #table_next {
-            color: white;
-        }
-
-        #table_previous {
-            color: white;
-        }
-
-        .dataTables_empty {
-            color: black;
-        }
-
         a {
             color: whitesmoke;
             padding: 15px;
@@ -133,16 +105,27 @@ include_once 'config.php';
             text-align: center;
         }
     </style>
-
 </head>
 
 <body>
+    <?php
+
+    $getAdmin = "SELECT * FROM admin_tbl";
+    $resultAdmin = mysqli_query($con, $getAdmin);
+    $dataArray = mysqli_fetch_array($resultAdmin);
+    $name = $dataArray['admin_name'];
+    $password = $dataArray['password'];
+    $id = $dataArray['id'];
+
+
+    ?>
     <div class="container-fluid">
         <div class="topMenu row rounded-bottom-4">
             <div class="col"> <img src="img/logo-removebg-preview.png" class="logo rounded float-start" alt="...">
             </div>
             <div class="title col">
-                <h4>View Users</h4>
+                <h4>Edit <Admin></Admin>
+                </h4>
             </div>
             <div class="col offset-1">
                 <nav class="navbar navbar-expand">
@@ -166,61 +149,35 @@ include_once 'config.php';
             </div>
 
         </div>
-        <div class="center rounded-5">
-            <div class="row">
-                <table id="table" class=" table-hover">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Contact Number</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $get_user_data = "SELECT * FROM user_table";
-                        $run_user_data = mysqli_query($con, $get_user_data);
-                        $i = 0;
-                        while ($row = mysqli_fetch_array($run_user_data)) {
-                            $sl = ++$i;
-                            $name = $row['name'];
-                            $email = $row['email'];
-                            $contactNumber = $row['contactnumber'];
-                            $id = $row['id'];
 
-                            echo "<tr>
-                                                        <td style='color: black'>$sl</td>
-                                                        <td style='color: black'>$name</td>
-                                                        <td style='color: black'>$email</td>
-                                                        <td style='color: black'>$contactNumber</td>
-                                                        <td class='btn-group'>
-                                                        <a href='view.php?id=$id' class='btn btn-success' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i>View</a>
-                                                            <a href='edit_page.php?id=$id' class='btn btn-warning' title='Edit'><i class='fa fa-pencil-square-o fa-lg'></i>Edit</a>
-                                                            <a href='delete.php?id=$id' class='btn btn-danger' title='Delete'>Delete
-						                                     <i class='fa fa-trash-o fa-lg' data-toggle='modal' data-target='#$id' style='' aria-hidden='true'></i>
-						</a>
-                                                        </td>
-                                                    </tr>";
-                        }
-                        ?>
-
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
+    <div class="center rounded-5">
+        <div class="row h4 pb-2 mb-4 text-white border-3 border-bottom border-white">
+            <div class="col">
 
-    <script src="//cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-4JTBymeQv4I4X4Obgb+TkTzPT2Q/1LrDgZrxyhOYH7feNmkRFziMN9NxfxyO6lk8" crossorigin="anonymous"></script>
-    <script>
-        $(document).ready(function() {
-            $('#table').DataTable();
-        });
-    </script>
+                <h1 class="text-center">EDIT: <?php echo $name ?></h1>
+            </div>
+        </div>
+        <form class="row g-3" action="edit_admin.php?id=<?php echo $id ?>" method="POST">
+
+            <div class="col-md-6 text-center" style="color: whitesmoke">
+                <label for="inputEmail4" class="form-label fw-bold">Name</label>
+                <input class="form-control bg-dark text-white rounded-pill text-capitalize" name="name" value="<?php echo $name ?>" id="inputEmail4">
+            </div>
+            <div class="col-md-6 text-center" style="color: whitesmoke">
+                <label for="inputEmail4" class="form-label fw-bold">Password</label>
+                <input class="rounded-pill form-control bg-dark text-white" name="password" value="<?php echo $password ?>" id="inputEmail4">
+            </div>
+            <div class="col-md-6 text-center justify-content-md-end" style="color: whitesmoke">
+                <label for=" inputPassword4" class="form-label fw-bold">Confirm Password</label>
+                <input class="rounded-pill form-control  bg-dark text-white" name="confirmpassword" value="<?php echo $password ?>" id="inputPassword4">
+            </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="rounded-pill btn text-white fw-bold me-md-2" style="background-color: #7A0505;" name="submit" value="submit" type="submit">Submit</button>
+            </div>
+        </form>
+
 </body>
 
 </html>
