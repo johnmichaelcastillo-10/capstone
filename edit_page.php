@@ -1,8 +1,8 @@
 <?php
-session_start();
+include_once 'config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include_once 'config.php';
+
 
 // Check if user is not logged in, then redirect to login page
 if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
@@ -110,19 +110,26 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
 <body>
     <?php
     $id = $_GET['id'];
+
+    // Retrieves data from user_table where id is equal to the id passed on the URL parameter
     $getName = "SELECT * FROM user_table WHERE id='$id'";
     $resultName = mysqli_query($con, $getName);
     $dataArray = mysqli_fetch_array($resultName);
+
+    // Assigns variables from the retrieved data
     $name = $dataArray['name'];
     $contactnumber = $dataArray['contactnumber'];
     $address = $dataArray['address'];
     $password = $dataArray['password'];
     $email = $dataArray['email'];
-
     ?>
+
     <div class="container-fluid">
+        <!-- Creates a top menu bar with a logo at the left corner, an Edit User title at the center, 
+           and navigation links: Home, View Users, View Admin, Logout at the right corner -->
         <div class="topMenu row rounded-bottom-4">
-            <div class="col"> <img src="img/logo-removebg-preview.png" class="logo rounded float-start" alt="...">
+            <div class="col">
+                <img src="img/logo-removebg-preview.png" class="logo rounded float-start" alt="...">
             </div>
             <div class="title col">
                 <h4>Edit User</h4>
@@ -147,10 +154,9 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
                     </div>
                 </nav>
             </div>
-
         </div>
-
     </div>
+
 
     <div class="center rounded-5">
         <div class="row h4 pb-2 mb-4 text-white border-3 border-bottom border-white">
@@ -190,6 +196,8 @@ if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
                 <button class="rounded-pill btn text-white fw-bold me-md-2" style="background-color: #7A0505;" name="submit" value="submit" type="submit">Submit</button>
             </div>
         </form>
+    </div>
+
 
 </body>
 

@@ -1,6 +1,6 @@
 <?php
-session_start();
 include_once 'config.php';
+
 
 // Check if user is already logged in, if yes then redirect to home page
 if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"] === true) {
@@ -25,9 +25,8 @@ if (isset($_POST['submit'])) {
         exit();
     } else {
         // Login failed
-        // Display error message
-        $error = "Invalid username or password. Please try again.";
-        echo $error; // Add this line to verify the error message
+        // Display error message using JS alert 
+        echo '<script>alert("Invalid username or password. Please try again.");</script>';
     }
 }
 ?>
@@ -96,13 +95,13 @@ if (isset($_POST['submit'])) {
                 <div class="rightSide col rounded-end-5 border border-danger">
                     <form action="" method="POST">
                         <h2 class="text-center">Login</h2>
-                        <div class="form-group">
-                            <label for="username">Username:</label>
-                            <input type="text" class="form-control" id="username" name="username" required>
+                        <div class="form-floating mb-3 text-black">
+                            <input class="form-control" id="floatingInput" name="username" placeholder="name@example.com">
+                            <label for="floatingInput">Username</label>
                         </div>
-                        <div class="form-group">
-                            <label for="password">Password:</label>
-                            <input type="password" class="form-control" id="password" name="password" required>
+                        <div class="form-floating text-black">
+                            <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password">
+                            <label for="floatingPassword">Password</label>
                         </div>
                         <div class="form-group">
                             <input type="submit" class="btn btn-block  sumbitBtn" style="background-color: white; color: #7A0505;" name="submit" value="Submit">

@@ -1,5 +1,12 @@
 <?php
 include_once 'config.php';
+
+// Check if user is not logged in, then redirect to login page
+if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
+    header("location: index.php");
+    exit;
+}
+
 $id = $_GET['id'];
 if (isset($_POST['submit'])) {
 

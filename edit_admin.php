@@ -1,18 +1,29 @@
 <?php
+// Include the configuration file
 include_once 'config.php';
+
+// Check if user is not logged in, then redirect to login page
+if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
+    header("location: index.php");
+    exit;
+}
+
+// Retrieve and sanitize the ID from the query string
 $id = $_GET['id'];
+$id = mysqli_real_escape_string($con, $id);
+
+// Check if the form was submitted
 if (isset($_POST['submit'])) {
 
-    // retrieve the form input
-
+    // Retrieve and sanitize the form input
     $name = $_POST['name'];
     $password = $_POST['password'];
     $confirmpassword = $_POST['confirmpassword'];
 
-    // validate the form input as needed
+    // Validate the form input as needed
     // ...
 
-    // check if the password and confirm password fields match
+    // Check if the password and confirm password fields match
     if ($password != $confirmpassword) {
         echo "<script>
             alert('Password not match');
@@ -21,12 +32,12 @@ if (isset($_POST['submit'])) {
         exit();
     }
 
+    // If the connection to the database fails, output an error message
     if ($con->connect_error) {
         die("Connection failed: " . $con->connect_error);
     }
 
-    // update the database record with the new data
-    $id = $_GET['id'];
+    // Update the relevant database record with the new data
     $sql = "UPDATE admin_tbl SET admin_name='$name', password='$password' WHERE id=$id";
 
     if ($con->query($sql) === TRUE) {
@@ -38,9 +49,11 @@ if (isset($_POST['submit'])) {
         echo "Error updating record: " . $con->error;
     }
 
+    // Close the database connection
     $con->close();
+
+    // If the form wasn't submitted, redirect back to the editing page
 } else {
-    // redirect the user back to the form page
     header("Location: edit_admin_page.php?id=$id");
     exit();
 }

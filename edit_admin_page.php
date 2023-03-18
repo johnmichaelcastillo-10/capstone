@@ -1,8 +1,8 @@
 <?php
-session_start();
+include_once 'config.php';
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-include_once 'config.php';
+
 
 // Check if user is not logged in, then redirect to login page
 if (!isset($_SESSION["logged_in"]) || $_SESSION["logged_in"] !== true) {
